@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">DuckPlay</string>
+    <string name="games">Игры</string>
+    <string name="saved">Сохраненные</string>
+    <string name="comingsoon">Скоро</string>
+</resources>
