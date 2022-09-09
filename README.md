@@ -6,9 +6,10 @@ Mini-games platform for Android. (In-Development)
 * Automatic games updating
 * Offline gaming
 * Fully free
+* Material You design
 
 ### Screenshots
-Coming soon
+<img src="https://github.com/kotleni/DuckPlay/blob/master/device1.png?raw=true" width=200/>&nbsp;<img src="https://github.com/kotleni/DuckPlay/blob/master/device2.png?raw=true" width=200/>
 
 ### ToDo
 - [x] Loading games
