@@ -35,7 +35,7 @@ class GamesFragment: Fragment() {
         binding.recycler.adapter = gamesListAdapter
         gamesListAdapter.setOnItemClickListener { pos, game ->
             val intent = Intent(requireActivity(), GameActivity::class.java)
-            intent.putExtra("url", game.url)
+            intent.putExtra("id", game.id)
             startActivity(intent)
         }
 

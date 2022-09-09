@@ -16,8 +16,8 @@ class GamesListAdapter: RecyclerView.Adapter<GamesListAdapter.MyHolder>() {
 
     class MyHolder(val binding: ItemGameBinding): RecyclerView.ViewHolder(binding.root) {
         fun configureGame(game: Game) {
-            binding.name.setText(game.name)
-            binding.about.setText(game.about)
+            binding.name.setText(game.getName())
+            binding.about.setText(game.getAbout())
 
             Glide
                 .with(binding.root.context)
