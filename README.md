@@ -15,6 +15,5 @@ Mini-games platform for Android. (In-Development)
 - [x] Loading games
 - [x] Running games
     - [x] Basic running
-    - [ ] Fullscreen toggle
-    - [ ] Local running
+    - [x] Fullscreen toggle
 - [ ] Saving games locally
