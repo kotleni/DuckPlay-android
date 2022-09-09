@@ -39,7 +39,7 @@ class GamesListAdapter: RecyclerView.Adapter<GamesListAdapter.MyHolder>() {
         val game = games[position]
         holder.configureGame(game)
 
-        holder.binding.root.setOnClickListener {
+        holder.binding.card.setOnClickListener {
             onItemClick.invoke(position, game)
         }
     }

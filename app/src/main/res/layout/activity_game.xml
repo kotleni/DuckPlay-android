@@ -7,10 +7,27 @@
         android:layout_height="match_parent"
         tools:context=".activities.GameActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="DuckPlay"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <WebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress"

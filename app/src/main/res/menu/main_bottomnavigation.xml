@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/games"
-            android:title="Игры"
+            android:title="@string/games"
             android:icon="@drawable/ic_outline_casino_24"/>
     <item
             android:id="@+id/saved"
-            android:title="Сохраненные"
+            android:title="@string/saved"
             android:icon="@drawable/ic_outline_favorite_border_24"/>
 </menu>

@@ -27,6 +27,8 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.appBar)
+
         val id = intent!!.getStringExtra("id")!!
         viewModel.loadGame(id)
 

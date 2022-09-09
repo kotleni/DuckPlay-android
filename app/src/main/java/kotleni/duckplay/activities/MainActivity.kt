@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.appBar)
+
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, GamesFragment())
         transaction.commit()

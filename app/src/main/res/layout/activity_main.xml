@@ -7,11 +7,26 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="DuckPlay"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/container"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
             app:layout_constraintBottom_toTopOf="@id/navigation"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
