@@ -1,6 +1,6 @@
 ### DuckPlay
 Mini-games platform for Android. (In-Development)
-<br><b>Download:</b> Coming soon 
+<br><b>Download:</b><a href="https://github.com/kotleni/DuckPlay/releases>Releases</a> 
 
 ### Features
 * Automatic games updating
