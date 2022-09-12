@@ -1,5 +1,6 @@
 package kotleni.duckplay.activities
 
+import android.annotation.SuppressLint
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.webkit.WebChromeClient
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotleni.duckplay.MyWebChromeClient
 import kotleni.duckplay.R
 import kotleni.duckplay.databinding.ActivityGameBinding
 import kotleni.duckplay.network.DuckplayAPI
@@ -26,6 +28,7 @@ class GameActivity : AppCompatActivity() {
         ViewModelProvider(this, GameViewModelProviderFactory(gamesRepository)).get()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -35,7 +38,7 @@ class GameActivity : AppCompatActivity() {
         val id = intent!!.getStringExtra("id")!!
         viewModel.loadGame(id)
 
-        binding.webview.setWebChromeClient(MyWebChromeClient())
+        binding.webview.webChromeClient = MyWebChromeClient()
 
         viewModel.getGameInfo().observe(this) {
             if(it.isFullScreen) {
@@ -43,7 +46,7 @@ class GameActivity : AppCompatActivity() {
             }
 
             binding.webview.settings.apply { javaScriptEnabled = true }
-            binding.webview.addJavascriptInterface(GameJSInterface(), "DuckPlay")
+            binding.webview.addJavascriptInterface(MyWebChromeClient.GameJSInterface(), "DuckPlay")
             binding.webview.loadUrl("${DuckplayAPI.baseUrl}/duckplay/games/${id}/")
             setLoading(false)
         }
@@ -51,25 +54,8 @@ class GameActivity : AppCompatActivity() {
         setLoading(true)
     }
 
-    fun setLoading(isLoading: Boolean) {
+    private fun setLoading(isLoading: Boolean) {
         binding.progress.visibility = if(isLoading) View.VISIBLE else View.GONE
         binding.webview.visibility = if(isLoading) View.INVISIBLE else View.VISIBLE
-    }
-}
-
-class MyWebChromeClient: WebChromeClient() {
-    override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
-        Log.d("MyApplication", consoleMessage!!.message() + " -- From line "
-                + consoleMessage!!.lineNumber() + " of "
-                + consoleMessage!!.sourceId());
-        return super.onConsoleMessage(consoleMessage)
-    }
-}
-
-class GameJSInterface {
-    @android.webkit.JavascriptInterface
-    fun getLanguage(): String {
-        val locale = Resources.getSystem().getConfiguration().locale
-        return locale.language
     }
 }

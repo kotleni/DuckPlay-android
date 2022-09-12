@@ -17,22 +17,25 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBar)
 
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, GamesFragment())
+            .commit()
+
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, GamesFragment())
         transaction.commit()
 
         binding.navigation.setOnItemSelectedListener {
-            val transaction = supportFragmentManager.beginTransaction()
-            when(it.itemId) {
-                R.id.games -> {
-                    transaction.replace(R.id.container, GamesFragment())
-                }
-                R.id.saved -> {
-                    transaction.replace(R.id.container, SavedFragment())
-                }
+            val fragment = when(it.itemId) {
+                R.id.games -> GamesFragment()
+                R.id.saved -> SavedFragment()
+                else -> SavedFragment()
             }
-            transaction.commit()
-
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit()
             true
         }
     }
