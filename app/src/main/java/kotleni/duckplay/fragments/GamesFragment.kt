@@ -13,14 +13,16 @@ import kotleni.duckplay.activities.GameActivity
 import kotleni.duckplay.adapters.GamesListAdapter
 import kotleni.duckplay.databinding.FragmentGamesBinding
 import kotleni.duckplay.repositories.GamesRepository
+import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GamesViewModel
 import kotleni.duckplay.viewmodels.GamesViewModelProviderFactory
 
 class GamesFragment: Fragment() {
     private val binding: FragmentGamesBinding by lazy { FragmentGamesBinding.inflate(layoutInflater) }
     private val gamesRepository: GamesRepository by lazy { GamesRepository() }
+    private val localGamesRepository: LocalGamesRepository by lazy { LocalGamesRepository() }
     private val viewModel: GamesViewModel by lazy {
-        ViewModelProvider(requireActivity(), GamesViewModelProviderFactory(gamesRepository)).get()
+        ViewModelProvider(requireActivity(), GamesViewModelProviderFactory(gamesRepository, localGamesRepository)).get()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,17 +40,27 @@ class GamesFragment: Fragment() {
             intent.putExtra("id", game.id)
             startActivity(intent)
         }
+        gamesListAdapter.setOnItemSaveClickListener { game, isSaved ->
+            if(isSaved)
+                viewModel.removeSavedGame(game)
+            else
+                viewModel.downloadGame(game)
+        }
 
         viewModel.getGames().observe(this) {
             gamesListAdapter.updateGames(it)
             setLoading(false)
         }
 
+        viewModel.getLocalGames().observe(this) {
+            gamesListAdapter.updateLocalGames(it)
+        }
+
         viewModel.loadGames()
         setLoading(true)
     }
 
-    fun setLoading(isLoading: Boolean) {
+    private fun setLoading(isLoading: Boolean) {
         binding.progress.visibility = if(isLoading) View.VISIBLE else View.GONE
     }
 }

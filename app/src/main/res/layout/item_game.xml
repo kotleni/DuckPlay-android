@@ -62,6 +62,18 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 
+            <ImageView
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:id="@+id/save"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_outline_favorite_border_24"/>
+
             <!-- full width hack -->
             <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
