@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotleni.duckplay.activities.GameActivity
 import kotleni.duckplay.adapters.GamesListAdapter
 import kotleni.duckplay.databinding.FragmentGamesBinding
+import kotleni.duckplay.isNetworkAvailable
 import kotleni.duckplay.repositories.GamesRepository
 import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GamesViewModel
@@ -38,6 +39,7 @@ class GamesFragment: Fragment() {
         gamesListAdapter.setOnItemClickListener { pos, game ->
             val intent = Intent(requireActivity(), GameActivity::class.java)
             intent.putExtra("id", game.id)
+            intent.putExtra("isoffline", false)
             startActivity(intent)
         }
         gamesListAdapter.setOnItemSaveClickListener { game, isSaved ->
@@ -56,8 +58,13 @@ class GamesFragment: Fragment() {
             gamesListAdapter.updateLocalGames(it)
         }
 
-        viewModel.loadGames()
-        setLoading(true)
+        if(isNetworkAvailable(requireContext())) {
+            viewModel.loadGames()
+            setLoading(true)
+        } else {
+            binding.offlinemode.visibility = View.VISIBLE
+            setLoading(false)
+        }
     }
 
     private fun setLoading(isLoading: Boolean) {

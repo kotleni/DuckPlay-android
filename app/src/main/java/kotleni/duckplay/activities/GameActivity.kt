@@ -16,6 +16,7 @@ import kotleni.duckplay.R
 import kotleni.duckplay.databinding.ActivityGameBinding
 import kotleni.duckplay.network.DuckplayAPI
 import kotleni.duckplay.repositories.GamesRepository
+import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GameViewModel
 import kotleni.duckplay.viewmodels.GameViewModelProviderFactory
 import kotleni.duckplay.viewmodels.GamesViewModel
@@ -24,8 +25,9 @@ import kotleni.duckplay.viewmodels.GamesViewModelProviderFactory
 class GameActivity : AppCompatActivity() {
     private val binding: ActivityGameBinding by lazy { ActivityGameBinding.inflate(layoutInflater) }
     private val gamesRepository: GamesRepository by lazy { GamesRepository() }
+    private val localGamesRepository: LocalGamesRepository by lazy { LocalGamesRepository() }
     private val viewModel: GameViewModel by lazy {
-        ViewModelProvider(this, GameViewModelProviderFactory(gamesRepository)).get()
+        ViewModelProvider(this, GameViewModelProviderFactory(gamesRepository, localGamesRepository)).get()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -34,24 +36,35 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBar)
-
-        val id = intent!!.getStringExtra("id")!!
-        viewModel.loadGame(id)
+        supportActionBar?.hide()
 
         binding.webview.webChromeClient = MyWebChromeClient()
-
-        viewModel.getGameInfo().observe(this) {
-            if(it.isFullScreen) {
-                supportActionBar?.hide()
-            }
-
-            binding.webview.settings.apply { javaScriptEnabled = true }
-            binding.webview.addJavascriptInterface(MyWebChromeClient.GameJSInterface(), "DuckPlay")
-            binding.webview.loadUrl("${DuckplayAPI.baseUrl}/duckplay/games/${id}/")
-            setLoading(false)
+        binding.webview.settings.apply {
+            javaScriptEnabled = true
+            allowFileAccess = true
         }
 
+        binding.webview.addJavascriptInterface(MyWebChromeClient.GameJSInterface(), "DuckPlay")
+
+        val id = intent!!.getStringExtra("id")!!
+        val isOffline = intent!!.getBooleanExtra("isoffline", false)
+
         setLoading(true)
+        if(isOffline) {
+            viewModel.loadOfflineGame(id)
+
+            viewModel.getLocalGame().observe(this) {
+                setLoading(false)
+                binding.webview.loadUrl("file:///" + "${LocalGamesRepository.dirPath}/${it.id}/index.html")
+            }
+        } else {
+            viewModel.loadGame(id)
+
+            viewModel.getGameInfo().observe(this) {
+                binding.webview.loadUrl("${DuckplayAPI.baseUrl}/duckplay/games/${id}/")
+                setLoading(false)
+            }
+        }
     }
 
     private fun setLoading(isLoading: Boolean) {

@@ -7,7 +7,9 @@ import kotleni.duckplay.network.DuckplayAPI
 import java.io.File
 
 class LocalGamesRepository {
-    private val dirPath = "/data/data/kotleni.duckplay/files/games7/"
+    companion object {
+        val dirPath = "/data/data/kotleni.duckplay/files/games7/"
+    }
     private val gson = Gson()
 
     init {

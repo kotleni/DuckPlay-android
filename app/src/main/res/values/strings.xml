@@ -3,4 +3,5 @@
     <string name="games">Games</string>
     <string name="saved">Saved</string>
     <string name="comingsoon">Coming soon</string>
+    <string name="offline_mode">Offline mode</string>
 </resources>

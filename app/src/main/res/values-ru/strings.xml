@@ -3,4 +3,5 @@
     <string name="games">Игры</string>
     <string name="saved">Сохраненные</string>
     <string name="comingsoon">Скоро</string>
+    <string name="offline_mode">Оффлайн режим</string>
 </resources>
