@@ -16,7 +16,6 @@ import kotleni.duckplay.viewmodels.SavedViewModel
 
 class SavedFragment: Fragment() {
     private val binding: FragmentSavedBinding by lazy { FragmentSavedBinding.inflate(layoutInflater) }
-    private val localGamesRepository: LocalGamesRepository by lazy { LocalGamesRepository() }
     private val viewModel: SavedViewModel by lazy { createViewModel(SavedViewModel::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
