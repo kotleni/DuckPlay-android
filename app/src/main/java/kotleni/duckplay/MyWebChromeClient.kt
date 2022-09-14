@@ -6,6 +6,7 @@ import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
 
 class MyWebChromeClient: WebChromeClient() {
+    // JavaScript DuckPlay Object
     class GameJSInterface {
         @android.webkit.JavascriptInterface
         fun getLanguage(): String {

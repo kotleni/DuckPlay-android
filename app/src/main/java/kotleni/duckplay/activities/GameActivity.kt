@@ -8,14 +8,11 @@ import kotleni.duckplay.MyWebChromeClient
 import kotleni.duckplay.createViewModel
 import kotleni.duckplay.databinding.ActivityGameBinding
 import kotleni.duckplay.network.DuckplayAPI
-import kotleni.duckplay.repositories.GamesRepository
 import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GameViewModel
 
 class GameActivity : AppCompatActivity() {
     private val binding: ActivityGameBinding by lazy { ActivityGameBinding.inflate(layoutInflater) }
-    private val gamesRepository: GamesRepository by lazy { GamesRepository() }
-    private val localGamesRepository: LocalGamesRepository by lazy { LocalGamesRepository() }
     private val viewModel: GameViewModel by lazy { createViewModel(GameViewModel::class.java) }
 
     @SuppressLint("SetJavaScriptEnabled")

@@ -8,12 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.get
-import kotleni.duckplay.viewmodels.GamesViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
-import java.nio.channels.Channels
 
+// download file from url to path
 fun download(link: String, path: String) {
     URL(link).openStream().use { input ->
         FileOutputStream(File(path)).use { output ->
@@ -22,8 +21,8 @@ fun download(link: String, path: String) {
     }
 }
 
-fun isNetworkAvailable(context: Context?): Boolean {
-    if (context == null) return false
+// check is network available
+fun isNetworkAvailable(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
@@ -49,15 +48,19 @@ fun isNetworkAvailable(context: Context?): Boolean {
     return false
 }
 
+// create viewmodel for viewmodelstoreowner
 fun <T: ViewModel> ViewModelStoreOwner.createViewModel(clazz: Class<T>): T {
+    // get constructor and initialize
     val constructor = clazz.getConstructor(RepositoriesContainer::class.java)
     val instance = constructor.newInstance(RepositoriesContainer())
 
+    // make factory
     val factory = object: ViewModelProvider.Factory {
         override fun <T: ViewModel> create(modelClass: Class<T>): T {
             return instance as T
         }
     }
 
+    // make viewmodel and return
     return (ViewModelProvider(this, factory).get() as ViewModel) as T
 }

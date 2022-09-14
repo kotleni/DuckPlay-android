@@ -7,11 +7,6 @@ class RepositoriesContainer(
     private val gamesRepository: GamesRepository = GamesRepository(),
     private val localGamesRepository: LocalGamesRepository = LocalGamesRepository()
 ) {
-    fun getGamesRepository(): GamesRepository {
-        return gamesRepository
-    }
-
-    fun getLocalGamesRepository(): LocalGamesRepository {
-        return localGamesRepository
-    }
+    fun getGamesRepository(): GamesRepository = gamesRepository
+    fun getLocalGamesRepository(): LocalGamesRepository = localGamesRepository
 }
