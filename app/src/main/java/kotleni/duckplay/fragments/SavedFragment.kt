@@ -6,25 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotleni.duckplay.activities.GameActivity
-import kotleni.duckplay.adapters.GamesListAdapter
 import kotleni.duckplay.adapters.SavedListAdapter
+import kotleni.duckplay.createViewModel
 import kotleni.duckplay.databinding.FragmentSavedBinding
 import kotleni.duckplay.repositories.LocalGamesRepository
-import kotleni.duckplay.viewmodels.GamesViewModel
-import kotleni.duckplay.viewmodels.GamesViewModelProviderFactory
 import kotleni.duckplay.viewmodels.SavedViewModel
-import kotleni.duckplay.viewmodels.SavedViewModelProviderFactory
 
 class SavedFragment: Fragment() {
     private val binding: FragmentSavedBinding by lazy { FragmentSavedBinding.inflate(layoutInflater) }
     private val localGamesRepository: LocalGamesRepository by lazy { LocalGamesRepository() }
-    private val viewModel: SavedViewModel by lazy {
-        ViewModelProvider(requireActivity(), SavedViewModelProviderFactory(localGamesRepository)).get()
-    }
+    private val viewModel: SavedViewModel by lazy { createViewModel(SavedViewModel::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return binding.root

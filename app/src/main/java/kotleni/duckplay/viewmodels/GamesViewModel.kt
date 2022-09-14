@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import kotleni.duckplay.RepositoriesContainer
 import kotleni.duckplay.entities.Game
 import kotleni.duckplay.repositories.GamesRepository
 import kotleni.duckplay.repositories.LocalGamesRepository
@@ -12,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class GamesViewModel(val gamesRepository: GamesRepository, val localGamesRepository: LocalGamesRepository): ViewModel() {
+class GamesViewModel(val repositoriesContainer: RepositoriesContainer): ViewModel() {
     private val games = MutableLiveData<List<Game>>()
     private val localGames = MutableLiveData<List<Game>>()
 
@@ -26,11 +27,11 @@ class GamesViewModel(val gamesRepository: GamesRepository, val localGamesReposit
 
     fun loadGames() = CoroutineScope(Dispatchers.Main).launch {
         val games = withContext(Dispatchers.IO) {
-            gamesRepository.getGames()
+            repositoriesContainer.getGamesRepository().getGames()
         }
 
         val localGames = withContext(Dispatchers.IO) {
-            localGamesRepository.getGames()
+            repositoriesContainer.getLocalGamesRepository().getGames()
         }
 
         if(games != null) {
@@ -41,7 +42,7 @@ class GamesViewModel(val gamesRepository: GamesRepository, val localGamesReposit
 
     fun downloadGame(game: Game) = CoroutineScope(Dispatchers.Main).launch {
         val game = withContext(Dispatchers.IO) {
-            localGamesRepository.downloadGame(game)
+            repositoriesContainer.getLocalGamesRepository().downloadGame(game)
         }
 
         loadGames()
@@ -49,15 +50,15 @@ class GamesViewModel(val gamesRepository: GamesRepository, val localGamesReposit
 
     fun removeSavedGame(game: Game) = CoroutineScope(Dispatchers.Main).launch {
         withContext(Dispatchers.IO) {
-            localGamesRepository.removeGame(game)
+            repositoriesContainer.getLocalGamesRepository().removeGame(game)
         }
 
         loadGames()
     }
 }
 
-class GamesViewModelProviderFactory(val gamesRepository: GamesRepository, val localGamesRepository: LocalGamesRepository): ViewModelProvider.Factory {
-    override fun <T: ViewModel> create(modelClass: Class<T>): T {
-        return GamesViewModel(gamesRepository, localGamesRepository) as T
-    }
-}
+//class GamesViewModelProviderFactory(val gamesRepository: GamesRepository, val localGamesRepository: LocalGamesRepository): ViewModelProvider.Factory {
+//    override fun <T: ViewModel> create(modelClass: Class<T>): T {
+//        return GamesViewModel(gamesRepository, localGamesRepository) as T
+//    }
+//}

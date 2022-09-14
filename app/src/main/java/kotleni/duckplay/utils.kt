@@ -4,6 +4,11 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.get
+import kotleni.duckplay.viewmodels.GamesViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
@@ -42,4 +47,17 @@ fun isNetworkAvailable(context: Context?): Boolean {
         }
     }
     return false
+}
+
+fun <T: ViewModel> ViewModelStoreOwner.createViewModel(clazz: Class<T>): T {
+    val constructor = clazz.getConstructor(RepositoriesContainer::class.java)
+    val instance = constructor.newInstance(RepositoriesContainer())
+
+    val factory = object: ViewModelProvider.Factory {
+        override fun <T: ViewModel> create(modelClass: Class<T>): T {
+            return instance as T
+        }
+    }
+
+    return (ViewModelProvider(this, factory).get() as ViewModel) as T
 }

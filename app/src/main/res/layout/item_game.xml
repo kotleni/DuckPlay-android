@@ -31,7 +31,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="16dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/appicon_rect"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"/>

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import kotleni.duckplay.RepositoriesContainer
 import kotleni.duckplay.entities.Game
 import kotleni.duckplay.entities.GameInfo
 import kotleni.duckplay.repositories.GamesRepository
@@ -13,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SavedViewModel(val localGamesRepository: LocalGamesRepository): ViewModel() {
+class SavedViewModel(val repositoriesContainer: RepositoriesContainer): ViewModel() {
     private val localGames = MutableLiveData<List<Game>>()
 
     fun getLocalGames(): LiveData<List<Game>> {
@@ -22,15 +23,9 @@ class SavedViewModel(val localGamesRepository: LocalGamesRepository): ViewModel(
 
     fun loadGames() = CoroutineScope(Dispatchers.Main).launch {
         val games = withContext(Dispatchers.IO) {
-            localGamesRepository.getGames()
+            repositoriesContainer.getLocalGamesRepository().getGames()
         }
 
         this@SavedViewModel.localGames.value = games
-    }
-}
-
-class SavedViewModelProviderFactory(val localGamesRepository: LocalGamesRepository): ViewModelProvider.Factory {
-    override fun <T: ViewModel> create(modelClass: Class<T>): T {
-        return SavedViewModel(localGamesRepository) as T
     }
 }

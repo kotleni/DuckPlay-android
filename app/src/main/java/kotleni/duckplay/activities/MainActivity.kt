@@ -8,7 +8,7 @@ import kotleni.duckplay.databinding.ActivityMainBinding
 import kotleni.duckplay.fragments.GamesFragment
 import kotleni.duckplay.fragments.SavedFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
