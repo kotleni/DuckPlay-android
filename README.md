@@ -12,4 +12,4 @@ Mini-games platform for Android.
 <img src="https://github.com/kotleni/DuckPlay/blob/master/device1.png?raw=true" width=200/>&nbsp;<img src="https://github.com/kotleni/DuckPlay/blob/master/device2.png?raw=true" width=200/>
 
 ### Used in code
-MVVM, Room, Kotlin Coroutines, Retrofit, Glide
+MVVM, Kotlin Coroutines, Retrofit, Glide
