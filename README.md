@@ -1,5 +1,5 @@
 ### DuckPlay
-Mini-games platform for Android. (In-Development)
+Mini-games platform for Android.
 <br><b>Download: </b><a href="https://github.com/kotleni/DuckPlay/releases">Releases</a> 
 
 ### Features
@@ -12,4 +12,4 @@ Mini-games platform for Android. (In-Development)
 <img src="https://github.com/kotleni/DuckPlay/blob/master/device1.png?raw=true" width=200/>&nbsp;<img src="https://github.com/kotleni/DuckPlay/blob/master/device2.png?raw=true" width=200/>
 
 ### Used in code
-MVVM, Room, Kotlin Coroutines, Retrofit, Glide, Commented
+MVVM, Room, Kotlin Coroutines, Retrofit, Glide
