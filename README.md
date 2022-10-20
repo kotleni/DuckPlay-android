@@ -1,5 +1,5 @@
 ### DuckPlay
-Mini-games platform for Android.
+It's a little mini-games platform for Android.
 <br><b>Download: </b><a href="https://github.com/kotleni/DuckPlay/releases">Releases</a> 
 
 ### Features
