@@ -17,8 +17,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GamesViewModel @Inject constructor(val gamesRepository: GamesRepository, val localGamesRepository: LocalGamesRepository): ViewModel() {
+    enum class UIState { IDLE, LOADING, DOWNLOADING, REMOVING }
+
     private val games = MutableLiveData<List<Game>>()
     private val localGames = MutableLiveData<List<Game>>()
+
+    private val _uiState = MutableLiveData<UIState>(UIState.IDLE)
+    val uiState: LiveData<UIState> = _uiState
 
     fun getGames(): LiveData<List<Game>> {
         return games
@@ -29,6 +34,7 @@ class GamesViewModel @Inject constructor(val gamesRepository: GamesRepository, v
     }
 
     fun loadGames() = CoroutineScope(Dispatchers.Main).launch {
+        _uiState.value = UIState.LOADING
         val games = withContext(Dispatchers.IO) {
             gamesRepository.getGames()
         }
@@ -41,27 +47,22 @@ class GamesViewModel @Inject constructor(val gamesRepository: GamesRepository, v
             this@GamesViewModel.games.value = games
             this@GamesViewModel.localGames.value = localGames
         }
+        _uiState.value = UIState.IDLE
     }
 
     fun downloadGame(game: Game) = CoroutineScope(Dispatchers.Main).launch {
+        _uiState.value = UIState.DOWNLOADING
         val game = withContext(Dispatchers.IO) {
             localGamesRepository.downloadGame(game)
         }
-
         loadGames()
     }
 
     fun removeSavedGame(game: Game) = CoroutineScope(Dispatchers.Main).launch {
+        _uiState.value = UIState.REMOVING
         withContext(Dispatchers.IO) {
             localGamesRepository.removeGame(game)
         }
-
         loadGames()
     }
 }
-
-//class GamesViewModelProviderFactory(val gamesRepository: GamesRepository, val localGamesRepository: LocalGamesRepository): ViewModelProvider.Factory {
-//    override fun <T: ViewModel> create(modelClass: Class<T>): T {
-//        return GamesViewModel(gamesRepository, localGamesRepository) as T
-//    }
-//}

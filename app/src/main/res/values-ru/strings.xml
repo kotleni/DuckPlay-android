@@ -4,4 +4,7 @@
     <string name="saved">Сохраненные</string>
     <string name="comingsoon">Скоро</string>
     <string name="offline_mode">Оффлайн режим</string>
+    <string name="downloading">Скачивание..</string>
+    <string name="removing">Удаление...</string>
+    <string name="loading">Загрузка...</string>
 </resources>

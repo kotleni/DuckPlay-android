@@ -4,4 +4,7 @@
     <string name="saved">Збереженi</string>
     <string name="comingsoon">Незабаром</string>
     <string name="offline_mode">Оффлайн режим</string>
+    <string name="downloading">Збереження...</string>
+    <string name="removing">Видалення...</string>
+    <string name="loading">Завантаження...</string>
 </resources>

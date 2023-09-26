@@ -4,4 +4,7 @@
     <string name="saved">Saved</string>
     <string name="comingsoon">Coming soon</string>
     <string name="offline_mode">Offline mode</string>
+    <string name="downloading">Downloading...</string>
+    <string name="removing">Removing...</string>
+    <string name="loading">Loading...</string>
 </resources>
