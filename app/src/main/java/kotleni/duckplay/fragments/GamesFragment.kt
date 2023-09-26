@@ -1,31 +1,19 @@
 package kotleni.duckplay.fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IntegerRes
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotleni.duckplay.LoadingDialog
 import kotleni.duckplay.R
 import kotleni.duckplay.activities.GameActivity
 import kotleni.duckplay.adapters.GamesListAdapter
-import kotleni.duckplay.createViewModel
-import kotleni.duckplay.databinding.DialogLoadingBinding
 import kotleni.duckplay.databinding.FragmentGamesBinding
 import kotleni.duckplay.isNetworkAvailable
-import kotleni.duckplay.repositories.GamesRepository
-import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GamesViewModel
 import javax.inject.Inject
 

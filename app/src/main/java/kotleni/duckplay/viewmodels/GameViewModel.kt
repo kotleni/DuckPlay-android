@@ -3,9 +3,7 @@ package kotleni.duckplay.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotleni.duckplay.RepositoriesContainer
 import kotleni.duckplay.entities.Game
 import kotleni.duckplay.entities.GameInfo
 import kotleni.duckplay.repositories.GamesRepository

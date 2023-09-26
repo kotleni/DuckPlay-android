@@ -47,20 +47,3 @@ fun isNetworkAvailable(context: Context): Boolean {
     }
     return false
 }
-
-// create viewmodel for viewmodelstoreowner
-fun <T: ViewModel> ViewModelStoreOwner.createViewModel(clazz: Class<T>): T {
-    // get constructor and initialize
-    val constructor = clazz.getConstructor(RepositoriesContainer::class.java)
-    val instance = constructor.newInstance(RepositoriesContainer())
-
-    // make factory
-    val factory = object: ViewModelProvider.Factory {
-        override fun <T: ViewModel> create(modelClass: Class<T>): T {
-            return instance as T
-        }
-    }
-
-    // make viewmodel and return
-    return (ViewModelProvider(this, factory).get() as ViewModel) as T
-}
