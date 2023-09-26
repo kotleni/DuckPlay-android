@@ -4,16 +4,20 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import dagger.hilt.android.AndroidEntryPoint
 import kotleni.duckplay.MyWebChromeClient
 import kotleni.duckplay.createViewModel
 import kotleni.duckplay.databinding.ActivityGameBinding
 import kotleni.duckplay.network.DuckplayAPI
 import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GameViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GameActivity : AppCompatActivity() {
     private val binding: ActivityGameBinding by lazy { ActivityGameBinding.inflate(layoutInflater) }
-    private val viewModel: GameViewModel by lazy { createViewModel(GameViewModel::class.java) }
+    // private val viewModel: GameViewModel by lazy { createViewModel(GameViewModel::class.java) }
+    @Inject lateinit var viewModel: GameViewModel
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {

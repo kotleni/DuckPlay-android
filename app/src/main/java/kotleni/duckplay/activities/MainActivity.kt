@@ -3,11 +3,13 @@ package kotleni.duckplay.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import dagger.hilt.android.AndroidEntryPoint
 import kotleni.duckplay.R
 import kotleni.duckplay.databinding.ActivityMainBinding
 import kotleni.duckplay.fragments.GamesFragment
 import kotleni.duckplay.fragments.SavedFragment
 
+@AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
