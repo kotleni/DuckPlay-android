@@ -22,23 +22,23 @@ data class Game(
     }
 
     fun getName(): String {
-        val locale = Resources.getSystem().getConfiguration().locale
+        val locale = Resources.getSystem().configuration.locale
         println("your lang: " + locale.language)
 
-        when(locale.language) {
-            "ru" -> { return name.ru }
-            "uk" -> { return name.ua }
-            else -> { return name.en }
+        return when(locale.language) {
+            "ru" -> name.ru
+            "uk" -> name.ua
+            else -> name.en
         }
     }
 
     fun getAbout(): String {
         val locale = Resources.getSystem().getConfiguration().locale
 
-        when(locale.language) {
-            "ru" -> { return about.ru }
-            "uk" -> { return about.ua }
-            else -> { return about.en }
+        return when(locale.language) {
+            "ru" -> about.ru
+            "uk" -> about.ua
+            else -> about.en
         }
     }
 }
