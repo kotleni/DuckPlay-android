@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 object DuckplayAPI {
-    val baseUrl = "https://kotleni.github.io/"
+    const val BASE_URL = "https://kotleni.github.io/"
 
     interface APIService {
         @GET("/duckplay/games.json")
@@ -32,12 +32,11 @@ object DuckplayAPI {
             addInterceptor(interceptor)
         }.build()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        return retrofit
+       return Retrofit.Builder()
+           .baseUrl(BASE_URL)
+           .addConverterFactory(GsonConverterFactory.create())
+           .client(client)
+           .build()
     }
 
     fun getService(): APIService {

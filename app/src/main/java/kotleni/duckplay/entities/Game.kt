@@ -10,7 +10,7 @@ data class Game(
     @SerializedName("about") val about: LocalisedString,
 ) {
     fun getWebUrl(): String {
-        return "${DuckplayAPI.baseUrl}/duckplay/games/${id}"
+        return "${DuckplayAPI.BASE_URL}/duckplay/games/${id}"
     }
 
     fun getIconUrl(): String {

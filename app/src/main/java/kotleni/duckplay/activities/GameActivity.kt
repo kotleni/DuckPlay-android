@@ -48,7 +48,7 @@ class GameActivity : AppCompatActivity() {
             viewModel.loadGame(id)
 
             viewModel.getGameInfo().observe(this) {
-                binding.webview.loadUrl("${DuckplayAPI.baseUrl}/duckplay/games/${id}/")
+                binding.webview.loadUrl("${DuckplayAPI.BASE_URL}/duckplay/games/${id}/")
                 setLoading(false)
             }
         }
