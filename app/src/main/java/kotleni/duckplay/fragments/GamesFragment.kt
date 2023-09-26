@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotleni.duckplay.activities.GameActivity
 import kotleni.duckplay.adapters.GamesListAdapter
 import kotleni.duckplay.createViewModel
@@ -18,10 +19,13 @@ import kotleni.duckplay.isNetworkAvailable
 import kotleni.duckplay.repositories.GamesRepository
 import kotleni.duckplay.repositories.LocalGamesRepository
 import kotleni.duckplay.viewmodels.GamesViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GamesFragment: Fragment() {
     private val binding: FragmentGamesBinding by lazy { FragmentGamesBinding.inflate(layoutInflater) }
-    private val viewModel: GamesViewModel by lazy { createViewModel(GamesViewModel::class.java) }
+    // private val viewModel: GamesViewModel by lazy { createViewModel(GamesViewModel::class.java) }
+    @Inject lateinit var viewModel: GamesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root

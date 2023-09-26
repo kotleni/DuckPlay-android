@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotleni.duckplay.RepositoriesContainer
 import kotleni.duckplay.entities.Game
 import kotleni.duckplay.repositories.GamesRepository
@@ -12,8 +13,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GamesViewModel(val repositoriesContainer: RepositoriesContainer): ViewModel() {
+@HiltViewModel
+class GamesViewModel @Inject constructor(val gamesRepository: GamesRepository, val localGamesRepository: LocalGamesRepository): ViewModel() {
     private val games = MutableLiveData<List<Game>>()
     private val localGames = MutableLiveData<List<Game>>()
 
@@ -27,11 +30,11 @@ class GamesViewModel(val repositoriesContainer: RepositoriesContainer): ViewMode
 
     fun loadGames() = CoroutineScope(Dispatchers.Main).launch {
         val games = withContext(Dispatchers.IO) {
-            repositoriesContainer.getGamesRepository().getGames()
+            gamesRepository.getGames()
         }
 
         val localGames = withContext(Dispatchers.IO) {
-            repositoriesContainer.getLocalGamesRepository().getGames()
+            localGamesRepository.getGames()
         }
 
         if(games != null) {
@@ -42,7 +45,7 @@ class GamesViewModel(val repositoriesContainer: RepositoriesContainer): ViewMode
 
     fun downloadGame(game: Game) = CoroutineScope(Dispatchers.Main).launch {
         val game = withContext(Dispatchers.IO) {
-            repositoriesContainer.getLocalGamesRepository().downloadGame(game)
+            localGamesRepository.downloadGame(game)
         }
 
         loadGames()
@@ -50,7 +53,7 @@ class GamesViewModel(val repositoriesContainer: RepositoriesContainer): ViewMode
 
     fun removeSavedGame(game: Game) = CoroutineScope(Dispatchers.Main).launch {
         withContext(Dispatchers.IO) {
-            repositoriesContainer.getLocalGamesRepository().removeGame(game)
+            localGamesRepository.removeGame(game)
         }
 
         loadGames()
